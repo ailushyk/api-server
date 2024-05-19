@@ -1,0 +1,22 @@
+{
+  "singleQuote": true,
+  "semi": false,
+  "importOrder": [
+    "<THIRD_PARTY_MODULES>",
+    "",
+    "^@/config/(.*)$",
+    "^@/lib/(.*)$",
+    "^@/db$|^@/db/(.*)$",
+    "^@/(.*)$",
+    "",
+    "^[./]"
+  ],
+  "importOrderParserPlugins": [
+    "typescript",
+    "jsx",
+    "decorators-legacy"
+  ],
+  "plugins": [
+    "@ianvs/prettier-plugin-sort-imports"
+  ]
+}
