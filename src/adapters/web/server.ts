@@ -1,12 +1,12 @@
 import express from 'express'
 
+import { errorHandler } from '../../utils/error-handler'
 import userRoutes from './routes/user-routes'
-import { errorHandler } from './utils/error-handler'
 
 const app = express()
 
 app.use(express.json())
-app.use('/adapters', userRoutes)
+app.use('/api', userRoutes)
 app.use(errorHandler)
 
-export { app }
+export default app

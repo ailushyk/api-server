@@ -1,16 +1,14 @@
-import Database from 'better-sqlite3'
+import SQLite from 'better-sqlite3'
 import { Kysely, SqliteDialect } from 'kysely'
 
-import { User } from '../models/user'
+import { UserTable } from '../domain/models/user'
 
-interface DatabaseSchema {
-  user: User
+const database = new SQLite(process.env.DB_FILE || ':memory:')
+
+export interface DatabaseSchema {
+  user: UserTable
 }
 
-const database = new Database(process.env.DB_FILE || ':memory:')
-
-const db = new Kysely<DatabaseSchema>({
-  dialect: new SqliteDialect({ database: database }),
+export const db = new Kysely<DatabaseSchema>({
+  dialect: new SqliteDialect({ database }),
 })
-
-export { db }
