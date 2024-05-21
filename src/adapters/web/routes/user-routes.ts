@@ -1,6 +1,7 @@
 import { Router } from 'express'
 
-import { UserService } from '../../../application/services/user-service'
+import { UserService } from '@/application/services/user-service'
+
 import { SqliteUserRepository } from '../../persistence/sqlite/user-repository'
 import { UserController } from '../controllers/user-controller'
 

@@ -1,6 +1,7 @@
 import express from 'express'
 
-import { errorHandler } from '../../utils/error-handler'
+import { errorHandler } from '@/utils/error-handler'
+
 import userRoutes from './routes/user-routes'
 
 const app = express()
