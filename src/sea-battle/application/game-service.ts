@@ -12,13 +12,9 @@ export class GameService {
     this.repository = repository
   }
 
-  async create(data: {
-    userId: string
-    rows: number
-    cols: number
-  }): Promise<Game | null> {
+  async create(data: Partial<Game>, userId: string): Promise<Game | null> {
     const parsedData = createGameSchema.parse(data)
-    return this.repository.create(parsedData)
+    return this.repository.create(parsedData, userId)
   }
 
   async getGameById(params: unknown): Promise<Game | null> {
