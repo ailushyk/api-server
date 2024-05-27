@@ -9,10 +9,11 @@ export class GameController {
     this.gameService = gameService
   }
 
-  async start(req: Request, res: Response) {
+  async create(req: Request, res: Response) {
     try {
-      const data = req.body
-      const game = await this.gameService.create(data)
+      const user = req.user
+      const gameConfig = req.body
+      const game = await this.gameService.create(gameConfig, user!.username)
       res.status(201).json(game)
     } catch (error) {
       if (error instanceof Error) {

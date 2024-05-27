@@ -15,15 +15,16 @@ import { Game } from '../domain/game'
  * TODO: userId should be obtained from the JWT token
  */
 export class GameRepositorySQLite implements IGameRepository {
-  create({
-    userId,
-    rows,
-    cols,
-  }: {
-    userId: string
-    rows: number
-    cols: number
-  }): Promise<Game> {
+  create(
+    {
+      rows,
+      cols,
+    }: {
+      rows: number
+      cols: number
+    },
+    userId: string,
+  ): Promise<Game> {
     return db.transaction(async (trx) => {
       const [game] = await trx
         .insert(games)
