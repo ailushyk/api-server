@@ -1,4 +1,4 @@
-import { eq } from 'drizzle-orm'
+import { and, eq, getTableColumns } from 'drizzle-orm'
 
 import { db } from '@/config/database'
 import { IGameRepository } from '@/sea-battle/domain/game-repository'
@@ -43,8 +43,24 @@ export class GameRepositorySQLite implements IGameRepository {
     })
   }
 
-  async getById({ id }: { id: string }) {
-    const game = db.select().from(games).where(eq(games.id, id)).get()
+  async getById({ id, userId }: { id: string; userId: string }) {
+    const gamesColumns = getTableColumns(games)
+    const game = db
+      .select(gamesColumns)
+      .from(games)
+      .leftJoin(usersToGames, eq(usersToGames.gameId, games.id))
+      .where(and(eq(usersToGames.gameId, id), eq(usersToGames.userId, userId)))
+      .get()
     return game || null
+  }
+
+  async getAllByUser({ userId }: { userId: string }): Promise<Game[]> {
+    const gamesColumns = getTableColumns(games)
+    return db
+      .select(gamesColumns)
+      .from(games)
+      .leftJoin(usersToGames, eq(usersToGames.gameId, games.id))
+      .where(eq(usersToGames.userId, userId))
+      .all()
   }
 }

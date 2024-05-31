@@ -1,10 +1,11 @@
 import { sql } from 'drizzle-orm'
-import { integer, sqliteTableCreator, text } from 'drizzle-orm/sqlite-core'
+import { integer, text } from 'drizzle-orm/sqlite-core'
 import { v4 } from 'uuid'
 
-const sqliteTable = sqliteTableCreator((name) => `sb_${name}`)
+import { users } from '@/auth/infrastructure/schema/user-schema'
+import { sbSqliteTable } from '@/sea-battle/infrastructure/sqlite-table'
 
-export const games = sqliteTable('games', {
+export const games = sbSqliteTable('games', {
   id: text('id')
     .primaryKey()
     .$defaultFn(() => v4()),
@@ -22,8 +23,10 @@ export const games = sqliteTable('games', {
     .$onUpdate(() => sql`CURRENT_TIMESTAMP`),
 })
 
-export const usersToGames = sqliteTable('usersToGames', {
-  userId: text('userId').notNull(),
+export const usersToGames = sbSqliteTable('usersToGames', {
+  userId: text('userId')
+    .notNull()
+    .references(() => users.id),
   gameId: text('gameId')
     .notNull()
     .references(() => games.id),

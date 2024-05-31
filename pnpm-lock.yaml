@@ -20,6 +20,9 @@ importers:
       drizzle-orm:
         specifier: ^0.30.10
         version: 0.30.10(@libsql/client@0.6.0)(@types/better-sqlite3@7.6.10)(better-sqlite3@10.0.0)
+      drizzle-zod:
+        specifier: ^0.5.1
+        version: 0.5.1(drizzle-orm@0.30.10(@libsql/client@0.6.0)(@types/better-sqlite3@7.6.10)(better-sqlite3@10.0.0))(zod@3.23.8)
       express:
         specifier: ~4.19.2
         version: 4.19.2
@@ -1142,6 +1145,12 @@ packages:
         optional: true
       sqlite3:
         optional: true
+
+  drizzle-zod@0.5.1:
+    resolution: {integrity: sha512-C/8bvzUH/zSnVfwdSibOgFjLhtDtbKYmkbPbUCq46QZyZCH6kODIMSOgZ8R7rVjoI+tCj3k06MRJMDqsIeoS4A==}
+    peerDependencies:
+      drizzle-orm: '>=0.23.13'
+      zod: '*'
 
   ecdsa-sig-formatter@1.0.11:
     resolution: {integrity: sha512-nagl3RYrbNv6kQkeJIpt6NJZy8twLB/2vtz6yN9Z4vRKHN4/QZJIEbqohALSgwKdnksuY3k5Addp5lg8sVoVcQ==}
@@ -2910,6 +2919,11 @@ snapshots:
       '@libsql/client': 0.6.0
       '@types/better-sqlite3': 7.6.10
       better-sqlite3: 10.0.0
+
+  drizzle-zod@0.5.1(drizzle-orm@0.30.10(@libsql/client@0.6.0)(@types/better-sqlite3@7.6.10)(better-sqlite3@10.0.0))(zod@3.23.8):
+    dependencies:
+      drizzle-orm: 0.30.10(@libsql/client@0.6.0)(@types/better-sqlite3@7.6.10)(better-sqlite3@10.0.0)
+      zod: 3.23.8
 
   ecdsa-sig-formatter@1.0.11:
     dependencies:
