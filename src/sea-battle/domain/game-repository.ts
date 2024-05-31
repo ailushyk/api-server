@@ -5,5 +5,8 @@ export interface IGameRepository {
     gameConfig: { rows: number; cols: number },
     userId: string,
   ): Promise<Game>
-  getById({ id }: { id: string }): Promise<Game | null>
+
+  getById(params: { id: string; userId: string }): Promise<Game | null>
+
+  getAll(params: { userId: string }): Promise<Game[]>
 }

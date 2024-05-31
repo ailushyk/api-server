@@ -1,6 +1,10 @@
 import { Request, Response } from 'express'
 
 import { AuthService } from '@/auth/application/auth-service'
+import {
+  authAccessTokenSchema,
+  authGenerateAccessTokenSchema,
+} from '@/auth/auth-validation-schema'
 
 export class AuthController {
   authService: AuthService
@@ -9,22 +13,19 @@ export class AuthController {
     this.authService = service
   }
 
-  login(req: Request, res: Response) {
-    const { username } = req.body
-    const accessToken = this.authService.generateAccessToken(username)
-    const jwt = this.authService.verifyToken(accessToken)
-    const refreshToken = this.authService.generateRefreshToken(username)
-    res.json({ ...jwt, accessToken, refreshToken })
+  async login(req: Request, res: Response) {
+    const params = authGenerateAccessTokenSchema.parse(req.body)
+    const jwt = await this.authService.jwt(params)
+    res.json(jwt)
   }
 
-  refresh(req: Request, res: Response) {
-    const { token } = req.body
+  async refresh(req: Request, res: Response) {
+    const { token } = authAccessTokenSchema.parse(req.body)
     const user = this.authService.verifyToken(token)
     if (user) {
-      const accessToken = this.authService.generateAccessToken(user.username)
-      const jwt = this.authService.verifyToken(accessToken)
-      const refreshToken = this.authService.generateRefreshToken(user.username)
-      return res.json({ ...jwt, accessToken, refreshToken })
+      const params = authGenerateAccessTokenSchema.parse(user)
+      const jwt = await this.authService.jwt(params)
+      return res.json(jwt)
     }
     res.status(401).json({ error: 'Unauthorized' })
   }

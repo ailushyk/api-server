@@ -1,9 +1,49 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "59d85bd9-9047-4ece-900e-a27da373cf0d",
+  "id": "7b21243b-ef44-49ca-8dad-6cfdd6a924e3",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
+    "sb_users": {
+      "name": "sb_users",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "CURRENT_TIMESTAMP"
+        },
+        "updatedAt": {
+          "name": "updatedAt",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "CURRENT_TIMESTAMP"
+        },
+        "lastLoginAt": {
+          "name": "lastLoginAt",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "CURRENT_TIMESTAMP"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
     "sb_games": {
       "name": "sb_games",
       "columns": {
@@ -78,6 +118,19 @@
       },
       "indexes": {},
       "foreignKeys": {
+        "sb_usersToGames_userId_sb_users_id_fk": {
+          "name": "sb_usersToGames_userId_sb_users_id_fk",
+          "tableFrom": "sb_usersToGames",
+          "tableTo": "sb_users",
+          "columnsFrom": [
+            "userId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
         "sb_usersToGames_gameId_sb_games_id_fk": {
           "name": "sb_usersToGames_gameId_sb_games_id_fk",
           "tableFrom": "sb_usersToGames",

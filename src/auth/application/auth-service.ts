@@ -1,26 +1,36 @@
 import jwt, { JwtPayload } from 'jsonwebtoken'
 
-import {
-  authAccessTokenSchema,
-  authGenerateAccessTokenSchema,
-} from '@/auth/application/auth-validation-schema'
+import { UserRepository } from '@/auth/domain/user-repository'
 import { AUTH_EXPIRES_IN, AUTH_SECRET } from '@/constans'
 
 export class AuthService {
-  generateAccessToken(username: unknown) {
-    const parsedUsername = authGenerateAccessTokenSchema.parse({ username })
-    return jwt.sign({ username: parsedUsername.username }, AUTH_SECRET, {
+  private userRepository: UserRepository
+  constructor({ userRepository }: { userRepository: UserRepository }) {
+    this.userRepository = userRepository
+  }
+
+  private generateAccessToken(data: { id: string }) {
+    return jwt.sign(data, AUTH_SECRET, {
       expiresIn: AUTH_EXPIRES_IN,
     })
   }
 
-  generateRefreshToken(username: unknown) {
-    const parsedUsername = authGenerateAccessTokenSchema.parse({ username })
-    return jwt.sign({ username: parsedUsername.username }, AUTH_SECRET)
+  private generateRefreshToken(data: { id: string }) {
+    return jwt.sign(data, AUTH_SECRET)
   }
 
-  verifyToken(token: unknown): JwtPayload {
-    const parsedToken = authAccessTokenSchema.parse({ token })
-    return jwt.verify(parsedToken.token, AUTH_SECRET) as JwtPayload
+  // TODO: save the refresh token in the database with details
+  verifyToken(token: string) {
+    const user = jwt.verify(token, AUTH_SECRET)
+    return user as JwtPayload
+  }
+
+  async jwt(user: { id: string }) {
+    // TODO: temporary solution, should be replaced with a proper user creation
+    await this.userRepository.createIfNotExists(user)
+    const accessToken = this.generateAccessToken(user)
+    const jwt = this.verifyToken(accessToken)
+    const refreshToken = this.generateRefreshToken(user)
+    return { ...jwt, accessToken, refreshToken }
   }
 }

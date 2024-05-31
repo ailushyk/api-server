@@ -1,7 +1,9 @@
 # Features
 
 - [ ] Get user id from token
-- [ ] CORS
 - [ ] OpenID Connect
+- [ ] Keycloak auth provider
+- [ ] CORS
 - [ ] Websockets
 - [ ] GraphQL
+- [ ] tests

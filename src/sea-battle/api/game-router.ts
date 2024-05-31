@@ -10,6 +10,7 @@ const gameController = new GameController({ gameService })
 
 const router = Router()
 router.post('/games', (req, res) => gameController.create(req, res))
+router.get('/games', (req, res) => gameController.all(req, res))
 router.get('/games/:id', (req, res) => gameController.get(req, res))
 
 export default router

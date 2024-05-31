@@ -2,6 +2,8 @@ import { sql } from 'drizzle-orm'
 import { integer, sqliteTableCreator, text } from 'drizzle-orm/sqlite-core'
 import { v4 } from 'uuid'
 
+import { users } from '@/auth/infrastructure/schema/user-schema'
+
 const sqliteTable = sqliteTableCreator((name) => `sb_${name}`)
 
 export const games = sqliteTable('games', {
@@ -23,7 +25,9 @@ export const games = sqliteTable('games', {
 })
 
 export const usersToGames = sqliteTable('usersToGames', {
-  userId: text('userId').notNull(),
+  userId: text('userId')
+    .notNull()
+    .references(() => users.id),
   gameId: text('gameId')
     .notNull()
     .references(() => games.id),

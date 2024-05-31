@@ -1,3 +1,4 @@
+
 ### GET request to example server
 GET http://localhost:3003/api/games/96edab8e-dabb-498b-9f95-28336a29b7cb
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjEyMzQtNTY3OC0xMjM0LTU2NzgiLCJpYXQiOjE3MTY4MjU5NTUsImV4cCI6MTcxNjgyNjAxNX0.GZQ3JsNU34hRbXDFm1AZucG0UzaQkx6dKV5GsSwEVic
@@ -14,3 +15,7 @@ Content-Type: application/json
   "username": "1234-5678-1234-5678"
 }
 
+
+### GET all games by user
+GET http://localhost:3003/api/games
+Authorization: Bearer {{accessToken}}
