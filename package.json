@@ -5,14 +5,17 @@
   "scripts": {
     "start": "tsx ./src/index.ts",
     "dev": "tsx watch --env-file=.env ./src/index.ts",
-    "migration:generate": "pnpm drizzle-kit generate --config=./src/config/drizzle.config.ts",
-    "migration:up": "pnpm drizzle-kit migrate --config=./src/config/drizzle.config.ts"
+    "db:generate": "pnpm drizzle-kit generate --config=./src/config/drizzle.config.ts",
+    "db:push": "pnpm drizzle-kit push --config=./src/config/drizzle.config.ts",
+    "db:drop": "pnpm drizzle-kit drop --config=./src/config/drizzle.config.ts",
+    "db:up": "pnpm drizzle-kit migrate --config=./src/config/drizzle.config.ts"
   },
   "dependencies": {
     "better-sqlite3": "^10.0.0",
     "cookie-parser": "~1.4.6",
     "debug": "~4.3.4",
     "drizzle-orm": "^0.30.10",
+    "drizzle-zod": "^0.5.1",
     "express": "~4.19.2",
     "http-errors": "~2.0.0",
     "jsonwebtoken": "^9.0.2",
