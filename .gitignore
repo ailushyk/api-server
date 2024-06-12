@@ -27,3 +27,10 @@ npm-debug.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# db
+*.db
+
+# IDE
+/.vscode
+/.idea
