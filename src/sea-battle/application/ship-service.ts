@@ -36,14 +36,7 @@ export class ShipService {
     if (!game || game.status !== 'idle') {
       throw new Error('Game not found or already started')
     }
-    const createShip = await this.shipRepository.add({ ...params })
-    const countShips = await this.shipRepository.getAllByUser({
-      gameId: params.gameId,
-      userId: params.userId,
-    })
-    console.log('countShips', countShips)
-
-    return createShip
+    return await this.shipRepository.add({ ...params })
   }
 
   async removeShip(params: { userId: string; shipId: string }) {

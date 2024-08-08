@@ -2,14 +2,18 @@ import 'dotenv/config'
 
 import { defineConfig } from 'drizzle-kit'
 
-import { DATABASE_URL } from '@/constans'
+import { env } from '@/env'
 
 export default defineConfig({
   schema: './src/*/infrastructure/schema/*',
   out: './drizzle',
-  dialect: 'sqlite',
+  dialect: 'postgresql',
   dbCredentials: {
-    url: `file:${DATABASE_URL}`,
+    host: env.DATABASE_HOST,
+    port: env.DATABASE_PORT,
+    user: env.DATABASE_USER,
+    password: env.DATABASE_PASSWORD,
+    database: env.DATABASE_NAME,
   },
   verbose: true,
   strict: true,
