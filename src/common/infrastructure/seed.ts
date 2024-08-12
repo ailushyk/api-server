@@ -6,8 +6,8 @@ async function main() {
   console.log('Seed script is running...')
   await db.insert(language).values([
     {
-      code: 'en',
-      name: 'English',
+      code: 'pl',
+      name: 'Polish',
     },
   ])
 
