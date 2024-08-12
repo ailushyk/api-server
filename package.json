@@ -5,10 +5,10 @@
   "scripts": {
     "start": "tsx ./src/index.ts",
     "dev": "tsx watch --env-file=.env ./src/index.ts",
-    "db:push": "pnpm drizzle-kit push --config=./src/config/drizzle.config.ts",
-    "db:generate": "pnpm drizzle-kit generate --config=./src/config/drizzle.config.ts",
-    "db:drop": "pnpm drizzle-kit drop --config=./src/config/drizzle.config.ts",
-    "db:up": "pnpm drizzle-kit migrate --config=./src/config/drizzle.config.ts",
+    "db:push": "pnpm drizzle-kit push",
+    "db:generate": "pnpm drizzle-kit generate",
+    "db:drop": "pnpm drizzle-kit drop",
+    "db:up": "pnpm drizzle-kit migrate",
     "db:seed": "pnpm tsx --env-file=.env ./src/common/infrastructure/seed.ts",
     "db:studio": "pnpm drizzle-kit studio"
   },
