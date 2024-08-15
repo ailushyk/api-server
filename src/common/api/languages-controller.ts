@@ -10,7 +10,7 @@ export class LanguagesController {
   async all(req: Request, res: Response) {
     try {
       const data = await this.service.all()
-      res.status(200).json(data)
+      res.status(200).json({ data })
     } catch (e) {
       console.error(e)
       if (e instanceof Error) {
