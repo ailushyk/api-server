@@ -1,7 +1,6 @@
 import express from 'express'
 
 import { authMiddleware } from '@/config/auth-middleware'
-import authRouter from '@/auth/api/auth-router'
 import commonRouters from '@/common/api/common-routers'
 import healthRouter from '@/common/api/health-router'
 import plutosRouter from '@/plutos/api/plutos-router'
@@ -10,7 +9,6 @@ import { errorHandler } from '@/utils/error-handler'
 
 const app = express()
 app.use(express.json())
-app.use('/auth', authRouter)
 
 app.use('/api', authMiddleware.middleware())
 app.use('/api/', authMiddleware.protect('user'), commonRouters)
