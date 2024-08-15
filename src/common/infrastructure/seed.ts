@@ -1,6 +1,6 @@
 import { db } from '@/config/database'
 import { language } from '@/common/infrastructure/schema/language-schema'
-import { currency } from '@/plutos/infrastructure/schema/currency-pg-schema'
+import { currency } from '@/modules/plutos/infrastructure/schema/currency-pg-schema'
 
 async function main() {
   console.log('Seed script is running...')
