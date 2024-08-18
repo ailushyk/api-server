@@ -1,13 +1,14 @@
 import { JwtPayload } from 'jsonwebtoken'
-
-declare module 'jsonwebtoken' {
-  export interface JwtPayload {
-    id: string
-  }
-}
+import { Token } from 'keycloak-connect'
 
 declare module 'express' {
-  export interface Request {
-    user?: JwtPayload
+  interface Request {
+    kauth?: {
+      grant?: {
+        access_token?: Token & {
+          content: JwtPayload
+        }
+      }
+    }
   }
 }

@@ -1,12 +1,12 @@
 import { Request, Response } from 'express'
 
+import { getAuthenticatedUser } from '@/lib/user'
 import {
   deleteRequestShipsSchema,
   getRequestShipsSchema,
 } from '@/modules/sea-battle/application/game-validation-schema'
 import { ShipService } from '@/modules/sea-battle/application/ship-service'
 import { insertShipSchema } from '@/modules/sea-battle/infrastructure/schema/ships-schema'
-import { getAuthenticatedUser } from '@/utils/user'
 
 export class ShipsController {
   private shipsService: ShipService

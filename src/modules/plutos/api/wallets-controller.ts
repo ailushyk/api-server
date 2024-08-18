@@ -1,5 +1,6 @@
 import { Request, Response } from 'express'
 
+import { getUserIdFromRequest } from '@/lib/auth'
 import { logger } from '@/lib/logger'
 import { UserWalletService } from '@/modules/plutos/application/user-wallet-service'
 
@@ -15,7 +16,9 @@ export class WalletsController {
 
   async getWallets(req: Request, res: Response) {
     try {
-      const data = await this.userWalletsService.getUserWallets()
+      const data = await this.userWalletsService.getUserWallets({
+        userId: getUserIdFromRequest(req),
+      })
       res.status(200).json({
         data,
       })
@@ -28,11 +31,14 @@ export class WalletsController {
   }
 
   async createWallet(req: Request, res: Response) {
-    const data = req.body
-    console.log('data', data)
-    // const result = await this.userWalletsService.createWallet(data)
+    const userId = getUserIdFromRequest(req)
+    const data = await req.body
+    const result = await this.userWalletsService.createWallet({
+      ...data,
+      userId,
+    })
     res.status(201).json({
-      data,
+      data: result,
     })
   }
 

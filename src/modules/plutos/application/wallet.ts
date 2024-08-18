@@ -17,6 +17,6 @@ export type Wallet = typeof wallet.$inferSelect
 export type WalletInsert = typeof wallet.$inferInsert
 
 export interface UserWalletsRepository {
-  all(): Promise<Wallet[]>
-  create(wallet: WalletInsert): Promise<Wallet | null>
+  all({ userId }: { userId: string }): Promise<Wallet[]>
+  create(wallet: WalletInsert): Promise<{ id: string; name: string } | null>
 }
