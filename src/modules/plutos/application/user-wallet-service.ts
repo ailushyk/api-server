@@ -9,12 +9,12 @@ export class UserWalletService {
     this.repository = repository
   }
 
-  async getUserWallets() {
-    return this.repository.all()
+  async getUserWallets(params: { userId: string }) {
+    return this.repository.all(params)
   }
 
-  async createWallet({ data }: { data: WalletInsert }) {
-    // const user =
+  async createWallet(data: WalletInsert) {
+    // TODO: Validate data
     return this.repository.create(data)
   }
 }

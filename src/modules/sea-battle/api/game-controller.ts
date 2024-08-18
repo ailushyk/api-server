@@ -1,12 +1,12 @@
 import { Request, Response } from 'express'
 
+import { getAuthenticatedUser } from '@/lib/user'
 import { GameService } from '@/modules/sea-battle/application/game-service'
 import {
   createGameSchema,
   getParamsSchema,
   startRequestSchema,
 } from '@/modules/sea-battle/application/game-validation-schema'
-import { getAuthenticatedUser } from '@/utils/user'
 
 export class GameController {
   private gameService: GameService
