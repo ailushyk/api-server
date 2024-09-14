@@ -1,8 +1,9 @@
 import { drizzle } from 'drizzle-orm/node-postgres'
-import { Pool } from 'pg'
+import pg from 'pg'
 
 import { env } from '@/env'
 
+const { Pool } = pg
 const client = new Pool({
   host: env.DATABASE_HOST,
   port: env.DATABASE_PORT,
