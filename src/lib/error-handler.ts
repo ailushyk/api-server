@@ -9,5 +9,5 @@ export const errorHandler = (
   next: NextFunction,
 ) => {
   logger.error(err.message, err.stack)
-  res.status(500).send('Something broke!')
+  res.status(500).send('Something went wrong!')
 }
