@@ -15,6 +15,7 @@ class AuthMiddleware {
   }
 
   protect(spec?: KeycloakConnect.GuardFn | string): e.RequestHandler {
+    // TODO: Implement protect method to use keycloak.protect
     // return this.keycloak.protect(spec)
     return (req, res, next) => next()
   }
