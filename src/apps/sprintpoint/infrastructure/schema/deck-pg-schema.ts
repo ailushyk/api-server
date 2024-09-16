@@ -1,5 +1,6 @@
 import { sql } from 'drizzle-orm'
 import {
+  numeric,
   smallint,
   text,
   timestamp,
@@ -13,7 +14,7 @@ import { sprintPointPgTable } from '@/apps/sprintpoint/infrastructure/sprint-poi
 export const deck = sprintPointPgTable(
   'deck',
   {
-    id: uuid('id').primaryKey(),
+    id: uuid('id').primaryKey().defaultRandom(),
     name: varchar('name').notNull(),
     slug: varchar('slug').notNull().unique(),
     description: text('description'),
@@ -31,10 +32,11 @@ export const deck = sprintPointPgTable(
 )
 
 export const card = sprintPointPgTable('card', {
-  id: uuid('id').primaryKey(),
+  id: uuid('id').primaryKey().defaultRandom(),
   deckId: uuid('deckId').references(() => deck.id),
-  value: smallint('value').notNull(),
-  order: smallint('order').notNull(),
+  title: varchar('title').notNull(),
+  value: numeric('value'),
+  order: smallint('orderIndex').notNull(),
   createdAt: timestamp('createdAt').notNull().defaultNow(),
   updatedAt: timestamp('updatedAt')
     .notNull()
