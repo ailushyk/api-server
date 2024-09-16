@@ -26,6 +26,6 @@ function setupRoutes(app: Express) {
   app.use('/api/', authMiddleware.protect('user'), commonRouters)
   app.use('/api/plutos', authMiddleware.protect('user'), plutosRouter)
   // app.use('/api', gameRouter)
-  setupSprintpointRouter(app)
+  app.use('/api/sprintpoint', setupSprintpointRouter())
   app.use(healthRouter)
 }
