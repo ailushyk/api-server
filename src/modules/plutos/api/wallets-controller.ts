@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
 
-import { getUserIdFromRequest } from '@/lib/auth'
+import { getUserIdFromRequest } from '@/lib/auth/auth'
 import { logger } from '@/lib/logger'
 import { UserWalletService } from '@/modules/plutos/application/user-wallet-service'
 

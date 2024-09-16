@@ -13,7 +13,8 @@ export const createDeckController = (dependencies: DeckDependencies) => {
   }
 
   const getDeckWithCards = async (req: Request, res: Response) => {
-    const data = await dependencies.deckService.getDeckWithCards()
+    const { slug } = req.params
+    const data = await dependencies.deckService.getDeck({ slug })
     res.json({ data })
   }
 

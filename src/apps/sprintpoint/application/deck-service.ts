@@ -1,25 +1,29 @@
-import { eq } from 'drizzle-orm'
+import { Deck } from '@/apps/sprintpoint/application/sprintpoint-models'
 
-import { db } from '@/config/database'
-import {
-  card,
-  deck,
-} from '@/apps/sprintpoint/infrastructure/schema/deck-pg-schema'
+export type DeckService = {
+  getAllDecks: () => Promise<Deck[]>
+  getDeck: ({ slug }: { slug: string }) => Promise<Deck>
+}
 
-export class DeckService {
-  async getAllDecks() {
-    return db.select().from(deck)
+export type DeckRepository = {
+  getAllDecks: () => Promise<Deck[]>
+  getDeck(param: { slug: string }): Promise<Deck>
+}
+
+export const createDeckService = ({
+  deckRepository,
+}: {
+  deckRepository: DeckRepository
+}): DeckService => {
+  const getAllDecks = () => {
+    return deckRepository.getAllDecks()
   }
-  async getDeckWithCards() {
-    // return db.select().from(deck).leftJoin(card, eq(deck.id, card.deckId))
-    const [deckData] = await db
-      .select()
-      .from(deck)
-      .where(eq(deck.slug, 'standard'))
-    const cards = await db
-      .select()
-      .from(card)
-      .where(eq(card.deckId, deckData.id))
-    return { deck: deckData, cards }
+  const getDeck = async ({ slug }: { slug: string }) => {
+    return deckRepository.getDeck({ slug })
+  }
+
+  return {
+    getAllDecks,
+    getDeck,
   }
 }
