@@ -1,11 +1,11 @@
 import express, { Express } from 'express'
 
 import { authSession, sessionMemoryStore } from '@/config/session'
+import { authMiddleware } from '@/lib/auth/auth-middleware'
 import { errorHandler } from '@/lib/error-handler'
 import { setupSprintpointRouter } from '@/apps/sprintpoint/api/sprintpoint-router'
 import commonRouters from '@/common/api/common-routers'
 import healthRouter from '@/common/api/health-router'
-import { authMiddleware } from '@/common/auth-middleware'
 import plutosRouter from '@/modules/plutos/api/plutos-router'
 
 export function setupApp() {
