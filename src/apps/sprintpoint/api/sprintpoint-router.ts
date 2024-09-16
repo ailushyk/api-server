@@ -1,11 +1,12 @@
-import { Express, Request, Response, Router } from 'express'
+import { Request, Response, Router } from 'express'
 
-import { DeckController } from '@/apps/sprintpoint/api/deck-controller'
+import { createDeckController } from '@/apps/sprintpoint/api/deck-controller'
 import { DeckService } from '@/apps/sprintpoint/application/deck-service'
 
-export const setupSprintpointRouter = (app: Express) => {
+export const setupSprintpointRouter = () => {
   const router = Router()
-  const controller = new DeckController({
+
+  const controller = createDeckController({
     deckService: new DeckService(),
   })
   router.get('/', (req: Request, res: Response) => {
@@ -14,5 +15,5 @@ export const setupSprintpointRouter = (app: Express) => {
   router.get('/decks', (req: Request, res: Response) =>
     controller.getDecks(req, res),
   )
-  app.use('/api/sprintpoint', router)
+  return router
 }

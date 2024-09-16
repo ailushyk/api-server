@@ -2,15 +2,17 @@ import { Request, Response } from 'express'
 
 import { DeckService } from '@/apps/sprintpoint/application/deck-service'
 
-export class DeckController {
-  private deckService: DeckService
+type DeckDependencies = {
+  deckService: DeckService
+}
 
-  constructor({ deckService }: { deckService: DeckService }) {
-    this.deckService = deckService
+export function createDeckController(dependencies: DeckDependencies) {
+  const getDecks = async (req: Request, res: Response) => {
+    const data = await dependencies.deckService.all()
+    res.json({ message: 'Hello from Sprint Point Decks API!', data })
   }
 
-  async getDecks(req: Request, res: Response) {
-    const data = await this.deckService.all()
-    res.json({ message: 'Hello from Sprint Point Decks API!', data })
+  return {
+    getDecks,
   }
 }

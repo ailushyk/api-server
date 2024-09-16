@@ -2,7 +2,6 @@ import { sql } from 'drizzle-orm'
 import { integer, text } from 'drizzle-orm/sqlite-core'
 import { v4 } from 'uuid'
 
-import { users } from '@/auth/infrastructure/schema/user-schema'
 import { sbSqliteTable } from '@/modules/sea-battle/infrastructure/sqlite-table'
 
 export const games = sbSqliteTable('games', {
@@ -24,9 +23,7 @@ export const games = sbSqliteTable('games', {
 })
 
 export const usersToGames = sbSqliteTable('usersToGames', {
-  userId: text('userId')
-    .notNull()
-    .references(() => users.id),
+  userId: text('userId').notNull(),
   gameId: text('gameId')
     .notNull()
     .references(() => games.id),
