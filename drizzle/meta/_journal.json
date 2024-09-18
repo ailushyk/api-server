@@ -36,6 +36,13 @@
       "when": 1726492457490,
       "tag": "0004_sp_add_deck",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1726669282039,
+      "tag": "0005_sp_add_session",
+      "breakpoints": true
     }
   ]
 }

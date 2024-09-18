@@ -9,6 +9,7 @@ export const createDeckRepositoryPg = (): DeckRepository => {
     getAllDecks: async () => {
       return db
         .select({
+          id: deck.id,
           name: deck.name,
           slug: deck.slug,
         })
@@ -17,6 +18,7 @@ export const createDeckRepositoryPg = (): DeckRepository => {
     getDeck: async ({ slug }) => {
       const [deckData] = await db
         .select({
+          id: deck.id,
           name: deck.name,
           slug: deck.slug,
         })
