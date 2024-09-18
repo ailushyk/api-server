@@ -1,6 +1,7 @@
 import { relations, sql } from 'drizzle-orm'
 import { primaryKey, timestamp, uuid, varchar } from 'drizzle-orm/pg-core'
 
+import { deck } from '@/apps/sprintpoint/infrastructure/schema/deck-schema-pg'
 import { sprintPointPgTable } from '@/apps/sprintpoint/infrastructure/sprint-point-pg-table'
 
 export const session = sprintPointPgTable('session', {
@@ -12,6 +13,14 @@ export const session = sprintPointPgTable('session', {
     .defaultNow()
     .$onUpdate(() => sql`CURRENT_TIMESTAMP`),
 })
+
+export const sessionRelations = relations(session, ({ one, many }) => ({
+  deck: one(deck, {
+    fields: [session.deckId],
+    references: [deck.id],
+  }),
+  users: many(userToSession),
+}))
 
 export const userToSession = sprintPointPgTable(
   'user_to_session',
@@ -36,11 +45,7 @@ export const userToSession = sprintPointPgTable(
   },
 )
 
-export const sessionRelations = relations(session, ({ many }) => ({
-  users: many(userToSession),
-}))
-
-export const usersToGroupsRelations = relations(userToSession, ({ one }) => ({
+export const userToSessionRelations = relations(userToSession, ({ one }) => ({
   session: one(session, {
     fields: [userToSession.sessionId],
     references: [session.id],
