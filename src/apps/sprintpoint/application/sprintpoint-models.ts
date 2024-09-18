@@ -1,4 +1,5 @@
 export type Deck = {
+  id: string
   name: string
   slug: string
 }
