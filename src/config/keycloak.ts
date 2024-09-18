@@ -1,6 +1,5 @@
 import Keycloak from 'keycloak-connect'
 
-import { sessionMemoryStore } from '@/config/session'
 import { env } from '@/env'
 
 const apiConfig = {
@@ -14,9 +13,5 @@ const apiConfig = {
   'confidential-port': 0,
 }
 
-export const keycloak = new Keycloak(
-  {
-    store: sessionMemoryStore,
-  },
-  apiConfig,
-)
+// @deprecated
+export const keycloak = new Keycloak({}, apiConfig)
