@@ -32,7 +32,7 @@ function setupRoutes(app: Express) {
   )
   app.use('/api/', commonRouters)
   app.use(healthRouter)
-  app.use('/', (req, res) => {
-    res.json({ message: 'API Server' })
+  app.use('*', (req, res) => {
+    res.status(404).json({ message: 'Not Found' })
   })
 }

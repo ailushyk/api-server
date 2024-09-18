@@ -5,6 +5,7 @@ import { validateParams } from '@/lib/validate-middleware'
 import {
   cardController,
   deckController,
+  sessionController,
 } from '@/apps/sprintpoint/sprintpoint-container'
 
 const slugSchema = z.object({
@@ -14,19 +15,19 @@ const slugSchema = z.object({
 export const setupSprintpointRouter = () => {
   const router = Router()
 
-  router.get('/', (req: Request, res: Response) => {
-    res.json({ message: 'Hello from Sprint Point API!' })
-  })
-  router.get('/decks', (req: Request, res: Response) =>
-    deckController.getDecks(req, res),
-  )
+  router.post('/sessions', sessionController.startSession)
+
+  router.get('/decks', deckController.getDecks)
+
   router.get(
     '/decks/:slug',
     validateParams(slugSchema),
     (req: Request, res: Response) => deckController.getDeckWithCards(req, res),
   )
+
   router.get('/decks/:slug/cards', (req: Request, res: Response) =>
     cardController.getCardsByDeck(req, res),
   )
+
   return router
 }
