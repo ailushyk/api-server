@@ -1,8 +1,10 @@
+import { eq } from 'drizzle-orm'
 import { Request, Response } from 'express'
 import { z } from 'zod'
 
 import { db } from '@/config/database'
 import { getAuthorizedUser } from '@/lib/auth/auth'
+import { deck } from '@/apps/sprintpoint/infrastructure/schema/deck-schema-pg'
 import {
   session,
   userToSession,
@@ -42,13 +44,32 @@ export const createSessionController = () => {
 
     const session = await sessionService.startSession({
       userId: user.id,
-      name: user.name,
+      name: user.name || user.email,
       deckId,
     })
     res.json({ data: session })
   }
 
+  const getSessions = async (req: Request, res: Response) => {
+    const user = getAuthorizedUser(req)
+    const sessions = await db
+      .select({
+        id: session.id,
+        deck: deck.name,
+        createdBy: userToSession.name,
+        createdAt: session.createdAt,
+        updateAt: session.updatedAt,
+      })
+      .from(session)
+      .leftJoin(userToSession, eq(session.id, userToSession.sessionId))
+      .leftJoin(deck, eq(session.deckId, deck.id))
+      .where(eq(userToSession.userId, user.id))
+
+    res.json({ data: sessions })
+  }
+
   return {
     startSession,
+    getSessions,
   }
 }

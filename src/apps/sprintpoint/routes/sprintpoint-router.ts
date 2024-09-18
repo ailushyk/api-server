@@ -15,6 +15,7 @@ const slugSchema = z.object({
 export const setupSprintpointRouter = () => {
   const router = Router()
 
+  router.get('/sessions', sessionController.getSessions)
   router.post('/sessions', sessionController.startSession)
 
   router.get('/decks', deckController.getDecks)

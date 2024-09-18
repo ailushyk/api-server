@@ -1,6 +1,13 @@
 import { drizzle } from 'drizzle-orm/node-postgres'
 import pg from 'pg'
 
+import { deck } from '@/apps/sprintpoint/infrastructure/schema/deck-schema-pg'
+import {
+  session,
+  sessionRelations,
+  userToSession,
+  userToSessionRelations,
+} from '@/apps/sprintpoint/infrastructure/schema/session-schema-pg'
 import { env } from '@/env'
 
 const { Pool } = pg
@@ -12,4 +19,12 @@ const client = new Pool({
   database: env.DATABASE_NAME,
 })
 
-export const db = drizzle(client)
+export const db = drizzle(client, {
+  schema: {
+    deck,
+    session,
+    userToSession,
+    sessionRelations,
+    userToSessionRelations,
+  },
+})
