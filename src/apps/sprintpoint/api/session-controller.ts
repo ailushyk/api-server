@@ -1,4 +1,4 @@
-import { eq } from 'drizzle-orm'
+import { and, desc, eq } from 'drizzle-orm'
 import { Request, Response } from 'express'
 import { z } from 'zod'
 
@@ -55,7 +55,11 @@ export const createSessionController = () => {
     const sessions = await db
       .select({
         id: session.id,
-        deck: deck.name,
+        deck: {
+          id: deck.id,
+          name: deck.name,
+          slug: deck.slug,
+        },
         createdBy: userToSession.name,
         createdAt: session.createdAt,
         updateAt: session.updatedAt,
@@ -64,12 +68,42 @@ export const createSessionController = () => {
       .leftJoin(userToSession, eq(session.id, userToSession.sessionId))
       .leftJoin(deck, eq(session.deckId, deck.id))
       .where(eq(userToSession.userId, user.id))
+      .orderBy(desc(session.updatedAt))
 
     res.json({ data: sessions })
+  }
+
+  /**
+   * The user will be added to the session if not already added
+   */
+  const getSession = async (req: Request, res: Response) => {
+    const user = getAuthorizedUser(req)
+    const sessionId = req.params.sessionId
+    const [result] = await db
+      .select({
+        id: session.id,
+        deck: {
+          id: deck.id,
+          name: deck.name,
+          slug: deck.slug,
+        },
+        createdBy: userToSession.name,
+        createdAt: session.createdAt,
+        updateAt: session.updatedAt,
+      })
+      .from(session)
+      .leftJoin(userToSession, eq(session.id, userToSession.sessionId))
+      .leftJoin(deck, eq(session.deckId, deck.id))
+      // .where(and(eq(userToSession.userId, user.id), eq(session.id, sessionId)))
+      .where(eq(session.id, sessionId))
+      .limit(1)
+
+    res.json({ data: result })
   }
 
   return {
     startSession,
     getSessions,
+    getSession,
   }
 }

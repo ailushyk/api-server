@@ -6,6 +6,6 @@ export type Deck = {
 
 export type Card = {
   title: string
-  value: string | null
+  value: number | null
   order: number
 }
