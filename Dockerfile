@@ -11,4 +11,5 @@ COPY . .
 EXPOSE 3003
 
 # Step 8: Define the command to run your app
-CMD ["node", "--experimental-strip-types", "--env-file=.env",  "./src/index.ts"]
+#CMD ["node", "--experimental-strip-types", "--env-file=.env",  "./src/index.ts"]
+CMD ["node", "--experimental-strip-types",  "./src/index.ts"]
