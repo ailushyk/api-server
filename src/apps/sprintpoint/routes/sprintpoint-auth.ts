@@ -1,5 +1,5 @@
-import { createAuthMiddleware } from '@/lib/auth/auth-middleware'
-import { env } from '@/env'
+import { env } from '#env.ts'
+import { createAuthMiddleware } from '#lib/auth/auth-middleware.ts'
 
 const config = {
   realm: env.auth.sprintpoint.AUTH_KEYCLOAK_REALM_SPRINTPOINT,
@@ -11,4 +11,5 @@ const config = {
   },
   'confidential-port': 0,
 }
-export const sprintpointAuth = createAuthMiddleware(config)
+export const sprintpointAuth: ReturnType<typeof createAuthMiddleware> =
+  createAuthMiddleware(config)

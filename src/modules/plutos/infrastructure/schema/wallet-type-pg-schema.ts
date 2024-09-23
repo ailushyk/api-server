@@ -1,7 +1,6 @@
+import { plutosPgTable } from '#modules/plutos/infrastructure/plutos-pg-table.ts'
 import { sql } from 'drizzle-orm'
 import { text, timestamp, uuid } from 'drizzle-orm/pg-core'
-
-import { plutosPgTable } from '@/modules/plutos/infrastructure/plutos-pg-table'
 
 export const walletType = plutosPgTable('wallet_type', {
   id: uuid('id').primaryKey().defaultRandom(),

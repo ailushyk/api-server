@@ -1,11 +1,10 @@
-import { eq } from 'drizzle-orm'
-
-import { db } from '@/config/database'
-import {
+import { db } from '#config/database.ts'
+import type {
   UserWalletsRepository,
   WalletInsert,
-} from '@/modules/plutos/application/wallet'
-import { wallet } from '@/modules/plutos/infrastructure/schema/wallet-pg-schema'
+} from '#modules/plutos/application/wallet.ts'
+import { wallet } from '#modules/plutos/infrastructure/schema/wallet-pg-schema.ts'
+import { eq } from 'drizzle-orm'
 
 export class UserWalletsRepositoryPg implements UserWalletsRepository {
   async all({ userId }: { userId: string }) {
@@ -17,6 +16,6 @@ export class UserWalletsRepositoryPg implements UserWalletsRepository {
       id: wallet.id,
       name: wallet.name,
     })
-    return createdWallet
+    return createdWallet || null
   }
 }

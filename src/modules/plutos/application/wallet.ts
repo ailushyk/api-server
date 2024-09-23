@@ -1,4 +1,4 @@
-import { wallet } from '@/modules/plutos/infrastructure/schema/wallet-pg-schema'
+import { wallet } from '#modules/plutos/infrastructure/schema/wallet-pg-schema.ts'
 
 export enum WalletTypeValue {
   CheckingAccount = 'Checking Account',

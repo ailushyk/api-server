@@ -1,14 +1,13 @@
-import { and, desc, eq } from 'drizzle-orm'
-import { Request, Response } from 'express'
-import { z } from 'zod'
-
-import { db } from '@/config/database'
-import { getAuthorizedUser } from '@/lib/auth/auth'
-import { deck } from '@/apps/sprintpoint/infrastructure/schema/deck-schema-pg'
+import { deck } from '#apps/sprintpoint/infrastructure/schema/deck-schema-pg.ts'
 import {
   session,
   userToSession,
-} from '@/apps/sprintpoint/infrastructure/schema/session-schema-pg'
+} from '#apps/sprintpoint/infrastructure/schema/session-schema-pg.ts'
+import { db } from '#config/database.ts'
+import { getAuthorizedUser } from '#lib/auth/auth.ts'
+import { desc, eq } from 'drizzle-orm'
+import type { Request, Response } from 'express'
+import { z } from 'zod'
 
 const sessionService = {
   startSession: async (data: {
@@ -23,6 +22,9 @@ const sessionService = {
           deckId: data.deckId,
         })
         .returning({ id: session.id })
+      if (!s) {
+        throw new Error('Failed to create session')
+      }
       await trx.insert(userToSession).values({
         sessionId: s.id,
         userId: data.userId,
@@ -77,8 +79,12 @@ export const createSessionController = () => {
    * The user will be added to the session if not already added
    */
   const getSession = async (req: Request, res: Response) => {
-    const user = getAuthorizedUser(req)
+    // const user = getAuthorizedUser(req)
     const sessionId = req.params.sessionId
+    if (!sessionId) {
+      res.status(400).json({ error: 'Session ID is required' })
+      return
+    }
     const [result] = await db
       .select({
         id: session.id,

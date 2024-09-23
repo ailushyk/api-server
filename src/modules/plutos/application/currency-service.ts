@@ -1,4 +1,4 @@
-import { CurrencyRepository } from '@/modules/plutos/application/currency'
+import type { CurrencyRepository } from '#modules/plutos/application/currency.ts'
 
 export class CurrencyService {
   private repository: CurrencyRepository

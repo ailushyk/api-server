@@ -8,9 +8,7 @@ RUN pnpm install
 
 COPY . .
 
-RUN pnpm run build
-
-EXPOSE 3000
+EXPOSE 3003
 
 # Step 8: Define the command to run your app
-CMD ["node", "dist/server.js"]
+CMD ["node", "--experimental-strip-types", "--env-file=.env",  "./src/index.ts"]

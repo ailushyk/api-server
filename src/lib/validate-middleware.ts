@@ -1,4 +1,4 @@
-import { Request, Response } from 'express'
+import type { Request, Response } from 'express'
 import { ZodSchema } from 'zod'
 
 export function validateParams(schema: ZodSchema) {

@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "start": "tsx ./src/index.ts",
+    "start": "node --experimental-strip-types --env-file=.env  ./src/index.ts",
     "dev": "tsx watch --env-file=.env ./src/index.ts",
     "db:push": "pnpm drizzle-kit push",
     "db:generate": "pnpm drizzle-kit generate",
@@ -12,6 +12,9 @@
     "db:up": "pnpm drizzle-kit migrate",
     "db:seed": "pnpm tsx --env-file=.env ./src/common/infrastructure/seed.ts",
     "db:studio": "pnpm drizzle-kit studio"
+  },
+  "imports": {
+    "#*": "./src/*"
   },
   "dependencies": {
     "cookie-parser": "~1.4.6",

@@ -1,6 +1,5 @@
-import { NextFunction, Request, Response } from 'express'
-
-import { logger } from '@/lib/logger'
+import { logger } from '#lib/logger.ts'
+import type { NextFunction, Request, Response } from 'express'
 
 export const errorHandler = (
   err: Error,

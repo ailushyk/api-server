@@ -1,13 +1,9 @@
 import http from 'node:http'
-
-import { setupWebSockets } from '@/websocket'
-
-import { setupApp } from './app'
+import { setupApp } from '#app.ts'
 
 const PORT = process.env.PORT || 3000
 const app = setupApp()
 const server = http.createServer(app)
-await setupWebSockets(server)
 
 server.listen(PORT, () => {
   console.log(`Server is running: http://localhost:${PORT}`)

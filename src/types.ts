@@ -1,5 +1,5 @@
-import { JwtPayload } from 'jsonwebtoken'
-import { Token } from 'keycloak-connect'
+import type { JwtPayload } from 'jsonwebtoken'
+import type { Token } from 'keycloak-connect'
 
 declare module 'express' {
   interface Request {

@@ -1,8 +1,7 @@
+import { deck } from '#apps/sprintpoint/infrastructure/schema/deck-schema-pg.ts'
+import { sprintPointPgTable } from '#apps/sprintpoint/infrastructure/sprint-point-pg-table.ts'
 import { relations, sql } from 'drizzle-orm'
 import { primaryKey, timestamp, uuid, varchar } from 'drizzle-orm/pg-core'
-
-import { deck } from '@/apps/sprintpoint/infrastructure/schema/deck-schema-pg'
-import { sprintPointPgTable } from '@/apps/sprintpoint/infrastructure/sprint-point-pg-table'
 
 export const session = sprintPointPgTable('session', {
   id: uuid('id').primaryKey().defaultRandom(),

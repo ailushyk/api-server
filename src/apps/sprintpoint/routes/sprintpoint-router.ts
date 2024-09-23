@@ -1,18 +1,17 @@
-import { Request, Response, Router } from 'express'
-import { z } from 'zod'
-
-import { validateParams } from '@/lib/validate-middleware'
 import {
   cardController,
   deckController,
   sessionController,
-} from '@/apps/sprintpoint/sprintpoint-container'
+} from '#apps/sprintpoint/sprintpoint-container.ts'
+import { validateParams } from '#lib/validate-middleware.ts'
+import { Router, type Request, type Response } from 'express'
+import { z } from 'zod'
 
 const slugSchema = z.object({
   slug: z.string(),
 })
 
-export const setupSprintpointRouter = () => {
+export const setupSprintpointRouter = (): Router => {
   const router = Router()
 
   router.get('/sessions/:sessionId', sessionController.getSession)

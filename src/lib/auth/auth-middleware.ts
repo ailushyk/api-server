@@ -1,5 +1,8 @@
 import * as express from 'express'
-import KeycloakConnect, { GuardFn, KeycloakConfig } from 'keycloak-connect'
+import KeycloakConnect, {
+  type GuardFn,
+  type KeycloakConfig,
+} from 'keycloak-connect'
 
 export const createAuthMiddleware = (config: KeycloakConfig | string) => {
   const k = new KeycloakConnect({}, config)

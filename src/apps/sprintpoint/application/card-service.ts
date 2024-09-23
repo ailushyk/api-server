@@ -1,4 +1,4 @@
-import { Card } from '@/apps/sprintpoint/application/sprintpoint-models'
+import type { Card } from '#apps/sprintpoint/application/sprintpoint-models.ts'
 
 type CardRepository = {
   getCardsByDeckSlug: ({ slug }: { slug: string }) => Promise<Card[]>

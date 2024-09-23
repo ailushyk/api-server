@@ -1,3 +1,5 @@
+import { deck } from '#apps/sprintpoint/infrastructure/schema/deck-schema-pg.ts'
+import { sprintPointPgTable } from '#apps/sprintpoint/infrastructure/sprint-point-pg-table.ts'
 import { sql } from 'drizzle-orm'
 import {
   numeric,
@@ -6,9 +8,6 @@ import {
   uuid,
   varchar,
 } from 'drizzle-orm/pg-core'
-
-import { deck } from '@/apps/sprintpoint/infrastructure/schema/deck-schema-pg'
-import { sprintPointPgTable } from '@/apps/sprintpoint/infrastructure/sprint-point-pg-table'
 
 export const card = sprintPointPgTable('card', {
   id: uuid('id').primaryKey().defaultRandom(),

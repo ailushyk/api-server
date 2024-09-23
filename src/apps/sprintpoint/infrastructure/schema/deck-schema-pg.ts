@@ -1,3 +1,4 @@
+import { sprintPointPgTable } from '#apps/sprintpoint/infrastructure/sprint-point-pg-table.ts'
 import { sql } from 'drizzle-orm'
 import {
   text,
@@ -6,8 +7,6 @@ import {
   uuid,
   varchar,
 } from 'drizzle-orm/pg-core'
-
-import { sprintPointPgTable } from '@/apps/sprintpoint/infrastructure/sprint-point-pg-table'
 
 export const deck = sprintPointPgTable(
   'deck',

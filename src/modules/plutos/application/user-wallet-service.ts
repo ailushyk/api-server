@@ -1,7 +1,7 @@
-import {
+import type {
   UserWalletsRepository,
   WalletInsert,
-} from '@/modules/plutos/application/wallet'
+} from '#modules/plutos/application/wallet.ts'
 
 export class UserWalletService {
   private repository: UserWalletsRepository

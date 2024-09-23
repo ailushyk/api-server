@@ -1,4 +1,4 @@
-import { WalletTypeRepository } from '@/modules/plutos/application/wallet-type'
+import type { WalletTypeRepository } from '#modules/plutos/application/wallet-type.ts'
 
 export class WalletTypeService {
   private repository: WalletTypeRepository

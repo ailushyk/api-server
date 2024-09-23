@@ -1,13 +1,12 @@
+import type { CardRepository } from '#apps/sprintpoint/application/card-service.ts'
+import { card } from '#apps/sprintpoint/infrastructure/schema/card-schema-pg.ts'
+import { deck } from '#apps/sprintpoint/infrastructure/schema/deck-schema-pg.ts'
+import { db } from '#config/database.ts'
 import { eq } from 'drizzle-orm'
-
-import { db } from '@/config/database'
-import { CardRepository } from '@/apps/sprintpoint/application/card-service'
-import { card } from '@/apps/sprintpoint/infrastructure/schema/card-schema-pg'
-import { deck } from '@/apps/sprintpoint/infrastructure/schema/deck-schema-pg'
 
 export const createCardRepositoryPg = (): CardRepository => {
   return {
-    getCardsByDeckSlug: async ({ slug }) => {
+    getCardsByDeckSlug: async ({ slug }: { slug: string }) => {
       const rawCards = await db
         .select({
           id: card.id,

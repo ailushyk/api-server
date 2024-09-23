@@ -1,4 +1,4 @@
-import { LanguageRepository } from '@/common/infrastructure/language-repository'
+import type { LanguageRepository } from '#common/infrastructure/language-repository.ts'
 
 export class LanguageService {
   private repository: LanguageRepository

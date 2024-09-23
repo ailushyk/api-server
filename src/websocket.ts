@@ -1,7 +1,6 @@
 import { IncomingMessage, Server, ServerResponse } from 'node:http'
+import { setupSprintPointWebSocket } from '#apps/sprintpoint/api/sprintpoint-ws.js'
 import { WebSocketServer } from 'ws'
-
-import { setupSprintPointWebSocket } from '@/apps/sprintpoint/api/sprintpoint-ws'
 
 export async function setupWebSockets(
   server: Server<typeof IncomingMessage, typeof ServerResponse>,

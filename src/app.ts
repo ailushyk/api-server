@@ -1,11 +1,10 @@
-import express, { Express } from 'express'
-
-import { errorHandler } from '@/lib/error-handler'
-import { sprintpointAuth } from '@/apps/sprintpoint/routes/sprintpoint-auth'
-import { setupSprintpointRouter } from '@/apps/sprintpoint/routes/sprintpoint-router'
-import commonRouters from '@/common/api/common-routers'
-import healthRouter from '@/common/api/health-router'
-import plutosRouter from '@/modules/plutos/api/plutos-router'
+import { sprintpointAuth } from '#apps/sprintpoint/routes/sprintpoint-auth.ts'
+import { setupSprintpointRouter } from '#apps/sprintpoint/routes/sprintpoint-router.ts'
+import commonRouters from '#common/api/common-routers.ts'
+import healthRouter from '#common/api/health-router.ts'
+import { errorHandler } from '#lib/error-handler.ts'
+import plutosRouter from '#modules/plutos/api/plutos-router.ts'
+import express, { type Express } from 'express'
 
 export function setupApp() {
   const app = express()

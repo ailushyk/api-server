@@ -1,6 +1,5 @@
-import { Request, Response } from 'express'
-
-import { WalletTypeService } from '@/modules/plutos/application/wallet-type-service'
+import { WalletTypeService } from '#modules/plutos/application/wallet-type-service.ts'
+import type { Request, Response } from 'express'
 
 export class WalletTypeController {
   private walletTypeService: WalletTypeService

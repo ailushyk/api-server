@@ -1,6 +1,5 @@
-import { Request, Response } from 'express'
-
-import { LanguageService } from '@/common/application/language-service'
+import { LanguageService } from '#common/application/language-service.ts'
+import type { Request, Response } from 'express'
 
 export class LanguagesController {
   private service: LanguageService

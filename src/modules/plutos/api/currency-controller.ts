@@ -1,6 +1,5 @@
-import { Request, Response } from 'express'
-
-import { CurrencyService } from '@/modules/plutos/application/currency-service'
+import { CurrencyService } from '#modules/plutos/application/currency-service.ts'
+import type { Request, Response } from 'express'
 
 export class CurrencyController {
   private currencyService: CurrencyService

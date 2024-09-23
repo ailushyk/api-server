@@ -1,4 +1,4 @@
-import { Server as WebSocketServer } from 'ws'
+import { WebSocketServer } from 'ws'
 
 export const setupSprintPointWebSocket = async (wss: WebSocketServer) => {
   wss.on('connection', (ws) => {

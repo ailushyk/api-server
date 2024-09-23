@@ -1,10 +1,9 @@
+import { LanguagesController } from '#common/api/languages-controller.ts'
+import { LanguageService } from '#common/application/language-service.ts'
+import { LanguageRepositoryPg } from '#common/infrastructure/language-repository-pg.ts'
 import { Router } from 'express'
 
-import { LanguagesController } from '@/common/api/languages-controller'
-import { LanguageService } from '@/common/application/language-service'
-import { LanguageRepositoryPg } from '@/common/infrastructure/language-repository-pg'
-
-const router = Router()
+const router: Router = Router()
 
 const languageService = new LanguageService({
   repository: new LanguageRepositoryPg(),

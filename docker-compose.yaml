@@ -10,7 +10,7 @@ services:
       - ./:/app
       - /app/node_modules
     ports:
-      - "${PORT}:3000"
+      - "${PORT}:${PORT}"
     environment:
       DATABASE_HOST: db
       DATABASE_PORT: ${DATABASE_PORT}

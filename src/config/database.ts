@@ -1,14 +1,13 @@
-import { drizzle } from 'drizzle-orm/node-postgres'
-import pg from 'pg'
-
-import { deck } from '@/apps/sprintpoint/infrastructure/schema/deck-schema-pg'
+import { deck } from '#apps/sprintpoint/infrastructure/schema/deck-schema-pg.ts'
 import {
   session,
   sessionRelations,
   userToSession,
   userToSessionRelations,
-} from '@/apps/sprintpoint/infrastructure/schema/session-schema-pg'
-import { env } from '@/env'
+} from '#apps/sprintpoint/infrastructure/schema/session-schema-pg.ts'
+import { env } from '#env.ts'
+import { drizzle } from 'drizzle-orm/node-postgres'
+import pg from 'pg'
 
 const { Pool } = pg
 const client = new Pool({

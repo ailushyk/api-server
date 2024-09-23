@@ -1,4 +1,4 @@
-import { walletType } from '@/modules/plutos/infrastructure/schema/wallet-type-pg-schema'
+import { walletType } from '#modules/plutos/infrastructure/schema/wallet-type-pg-schema.ts'
 
 type WalletType = typeof walletType.$inferSelect
 

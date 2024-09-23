@@ -1,8 +1,7 @@
-import { Request, Response } from 'express'
-
-import { getUserIdFromRequest } from '@/lib/auth/auth'
-import { logger } from '@/lib/logger'
-import { UserWalletService } from '@/modules/plutos/application/user-wallet-service'
+import { getUserIdFromRequest } from '#lib/auth/auth.ts'
+import { logger } from '#lib/logger.ts'
+import { UserWalletService } from '#modules/plutos/application/user-wallet-service.ts'
+import type { Request, Response } from 'express'
 
 export class WalletsController {
   private userWalletsService: UserWalletService

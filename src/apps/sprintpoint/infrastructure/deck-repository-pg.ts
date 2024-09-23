@@ -1,8 +1,7 @@
+import type { DeckRepository } from '#apps/sprintpoint/application/deck-service.ts'
+import { deck } from '#apps/sprintpoint/infrastructure/schema/deck-schema-pg.ts'
+import { db } from '#config/database.ts'
 import { eq } from 'drizzle-orm'
-
-import { db } from '@/config/database'
-import { DeckRepository } from '@/apps/sprintpoint/application/deck-service'
-import { deck } from '@/apps/sprintpoint/infrastructure/schema/deck-schema-pg'
 
 export const createDeckRepositoryPg = (): DeckRepository => {
   return {
@@ -24,11 +23,7 @@ export const createDeckRepositoryPg = (): DeckRepository => {
         })
         .from(deck)
         .where(eq(deck.slug, slug))
-      // const cards = await db
-      //   .select()
-      //   .from(card)
-      //   .where(eq(card.deckId, deckData.id))
-      return deckData
+      return deckData || null
     },
   }
 }
