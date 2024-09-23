@@ -7,7 +7,7 @@ const config = {
   'ssl-required': 'external',
   resource: env.auth.sprintpoint.AUTH_KEYCLOAK_CLIENT_SPRINTPOINT,
   credentials: {
-    secret: 'dFEwAGju1h9bJsPV4YTZNb6SANvlNuT4',
+    secret: env.auth.sprintpoint.AUTH_KEYCLOAK_CLIENT_SECRET_SPRINTPOINT,
   },
   'confidential-port': 0,
 }

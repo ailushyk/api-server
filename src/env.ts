@@ -24,6 +24,7 @@ const authSchema = z.object({
   sprintpoint: z.object({
     AUTH_KEYCLOAK_REALM_SPRINTPOINT: z.string(),
     AUTH_KEYCLOAK_CLIENT_SPRINTPOINT: z.string(),
+    AUTH_KEYCLOAK_CLIENT_SECRET_SPRINTPOINT: z.string(),
   }),
 })
 const auth = {
@@ -38,6 +39,8 @@ const auth = {
       process.env.AUTH_KEYCLOAK_REALM_SPRINTPOINT,
     AUTH_KEYCLOAK_CLIENT_SPRINTPOINT:
       process.env.AUTH_KEYCLOAK_CLIENT_SPRINTPOINT,
+    AUTH_KEYCLOAK_CLIENT_SECRET_SPRINTPOINT:
+      process.env.AUTH_KEYCLOAK_CLIENT_SECRET_SPRINTPOINT,
   },
 }
 export const env = {
