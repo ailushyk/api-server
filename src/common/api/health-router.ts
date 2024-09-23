@@ -4,11 +4,11 @@ const router = Router()
 
 router.get('/health', (req, res) => {
   res.json({
-    status: 'UP',
+    status: 'UP!',
     checks: [
       {
         name: 'API health check',
-        status: 'UP',
+        status: 'UP!',
       },
     ],
   })
