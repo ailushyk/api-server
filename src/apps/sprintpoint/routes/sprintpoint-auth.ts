@@ -21,4 +21,4 @@ const config = {
 }
 
 export const sprintpointAuth: ReturnType<typeof createAuthMiddleware> =
-  createAuthMiddleware(config)
+  createAuthMiddleware(deprecated_config)
