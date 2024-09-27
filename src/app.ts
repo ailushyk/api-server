@@ -19,8 +19,8 @@ function setupMiddlewares(app: Express) {
 }
 
 function setupRoutes(app: Express) {
+  app.use(sprintpointAuth.middleware())
   app.use('/api/plutos', plutosRouter)
-  app.use('/api/sprintpoint', sprintpointAuth.middleware())
   app.use(
     '/api/sprintpoint',
     [

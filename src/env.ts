@@ -16,6 +16,7 @@ const keycloak = {
 }
 const authSchema = z.object({
   AUTH_KEYCLOAK_SERVER_URL: z.string(),
+  AUTH_KEYCLOAK_CONFIDENTIAL_PORT: z.string(),
   AUTH_SECRET: z.string(),
   plutos: z.object({
     AUTH_KEYCLOAK_REALM_PLUTOS: z.string(),
@@ -29,6 +30,7 @@ const authSchema = z.object({
 })
 const auth = {
   AUTH_KEYCLOAK_SERVER_URL: process.env.AUTH_KEYCLOAK_SERVER_URL,
+  AUTH_KEYCLOAK_CONFIDENTIAL_PORT: process.env.AUTH_KEYCLOAK_CONFIDENTIAL_PORT,
   AUTH_SECRET: process.env.AUTH_SECRET,
   plutos: {
     AUTH_KEYCLOAK_REALM_PLUTOS: process.env.AUTH_KEYCLOAK_REALM_PLUTOS,
@@ -43,6 +45,7 @@ const auth = {
       process.env.AUTH_KEYCLOAK_CLIENT_SECRET_SPRINTPOINT,
   },
 }
+
 export const env = {
   ...dbConfig,
   ...keycloak,
