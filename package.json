@@ -6,6 +6,7 @@
   "scripts": {
     "start": "node --experimental-strip-types --env-file=.env  ./src/index.ts",
     "dev": "tsx watch --env-file=.env ./src/index.ts",
+    "dev:debug": "DEBUG=express:* tsx watch --env-file=.env ./src/index.ts",
     "db:push": "pnpm drizzle-kit push",
     "db:generate": "pnpm drizzle-kit generate",
     "db:drop": "pnpm drizzle-kit drop",
