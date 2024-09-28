@@ -25,7 +25,7 @@ function setupRoutes(app: Express) {
     '/api/sprintpoint',
     [
       //
-      sprintpointAuth.protect(),
+      // sprintpointAuth.protect(),
     ],
     setupSprintpointRouter(),
   )
