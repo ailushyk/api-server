@@ -2,9 +2,9 @@ name: Docker Image CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main", "dev" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "main", "dev" ]
 
 jobs:
 
@@ -28,4 +28,4 @@ jobs:
       uses: docker/build-push-action@v6
       with:
         push: true
-        tags: ${{ vars.DOCKERHUB_USERNAME }}/api-server:latest
+        tags: ${{ vars.DOCKERHUB_USERNAME }}/api-server:${{ github.head_ref || github.ref_name }}
