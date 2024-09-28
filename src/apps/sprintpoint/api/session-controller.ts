@@ -54,7 +54,6 @@ export const createSessionController = () => {
 
   const getSessions = async (req: Request, res: Response) => {
     const user = getAuthorizedUser(req)
-    console.log('User', user)
     const sessions = await db
       .select({
         id: session.id,
