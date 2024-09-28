@@ -1,7 +1,7 @@
 import { env } from '#env.ts'
 import { createAuthMiddleware } from '#lib/auth/auth-middleware.ts'
 
-const deprecated_config = {
+const config = {
   realm: env.auth.sprintpoint.AUTH_KEYCLOAK_REALM_SPRINTPOINT,
   'auth-server-url': env.auth.AUTH_KEYCLOAK_SERVER_URL,
   'ssl-required': 'external',
@@ -12,7 +12,7 @@ const deprecated_config = {
   'confidential-port': env.auth.AUTH_KEYCLOAK_CONFIDENTIAL_PORT,
 }
 
-const config = {
+const bearerOnlyConfig = {
   realm: env.auth.sprintpoint.AUTH_KEYCLOAK_REALM_SPRINTPOINT,
   'auth-server-url': env.auth.AUTH_KEYCLOAK_SERVER_URL,
   'ssl-required': 'external',
@@ -21,4 +21,4 @@ const config = {
 }
 
 export const sprintpointAuth: ReturnType<typeof createAuthMiddleware> =
-  createAuthMiddleware(deprecated_config)
+  createAuthMiddleware(config)
