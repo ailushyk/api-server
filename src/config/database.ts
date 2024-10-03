@@ -1,11 +1,11 @@
-import { deck } from '#apps/sprintpoint/infrastructure/schema/deck-schema-pg.ts'
+import { env } from '#core/env.ts'
+import { deck } from '#sprintpoint/infrastructure/schema/deck-schema-pg.ts'
 import {
   session,
   sessionRelations,
   userToSession,
   userToSessionRelations,
-} from '#apps/sprintpoint/infrastructure/schema/session-schema-pg.ts'
-import { env } from '#env.ts'
+} from '#sprintpoint/infrastructure/schema/session-schema-pg.ts'
 import { drizzle } from 'drizzle-orm/node-postgres'
 import pg from 'pg'
 

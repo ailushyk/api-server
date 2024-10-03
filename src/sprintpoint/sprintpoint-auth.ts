@@ -1,5 +1,8 @@
-import { env } from '#env.ts'
-import { createAuthMiddleware } from '#lib/auth/auth-middleware.ts'
+import { env } from '#core/env.ts'
+import {
+  createAuthMiddleware,
+  type AuthMiddleware,
+} from '#lib/auth/auth-middleware.ts'
 
 const config = {
   realm: env.auth.sprintpoint.AUTH_KEYCLOAK_REALM_SPRINTPOINT,
@@ -12,6 +15,7 @@ const config = {
   'confidential-port': env.auth.AUTH_KEYCLOAK_CONFIDENTIAL_PORT,
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const bearerOnlyConfig = {
   realm: env.auth.sprintpoint.AUTH_KEYCLOAK_REALM_SPRINTPOINT,
   'auth-server-url': env.auth.AUTH_KEYCLOAK_SERVER_URL,
@@ -20,5 +24,4 @@ const bearerOnlyConfig = {
   'bearer-only': true,
 }
 
-export const sprintpointAuth: ReturnType<typeof createAuthMiddleware> =
-  createAuthMiddleware(config)
+export const sprintpointAuth: AuthMiddleware = createAuthMiddleware(config)

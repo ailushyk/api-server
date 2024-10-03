@@ -1,4 +1,4 @@
-import { sprintPointPgTable } from '#apps/sprintpoint/infrastructure/sprint-point-pg-table.ts'
+import { sprintPointPgTable } from '#sprintpoint/infrastructure/sprint-point-pg-table.ts'
 import { sql } from 'drizzle-orm'
 import {
   text,

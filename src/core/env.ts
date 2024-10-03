@@ -14,6 +14,7 @@ const keycloak = {
   AUTH_KEYCLOAK_REALM: process.env.AUTH_KEYCLOAK_REALM || '',
   AUTH_KEYCLOAK_CLIENT: process.env.AUTH_KEYCLOAK_CLIENT || '',
 }
+
 const authSchema = z.object({
   AUTH_KEYCLOAK_SERVER_URL: z.string(),
   AUTH_KEYCLOAK_CONFIDENTIAL_PORT: z.string(),
