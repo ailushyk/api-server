@@ -4,12 +4,19 @@ import KeycloakConnect, {
   type KeycloakConfig,
 } from 'keycloak-connect'
 
-export const createAuthMiddleware = (config: KeycloakConfig | string) => {
-  const k = new KeycloakConnect({}, config)
+export interface AuthMiddleware {
+  middleware: () => express.RequestHandler[]
+  protect: (spec?: GuardFn | string) => express.RequestHandler
+}
+
+export const createAuthMiddleware = (
+  config: KeycloakConfig | string,
+): AuthMiddleware => {
+  const keycloak = new KeycloakConnect({}, config)
   return {
-    middleware: () => k.middleware(),
+    middleware: () => keycloak.middleware(),
     protect: (spec?: GuardFn | string): express.RequestHandler => {
-      return k.protect(spec)
+      return keycloak.protect(spec)
     },
   }
 }

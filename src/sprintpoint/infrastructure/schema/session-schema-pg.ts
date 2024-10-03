@@ -1,11 +1,12 @@
-import { deck } from '#apps/sprintpoint/infrastructure/schema/deck-schema-pg.ts'
-import { sprintPointPgTable } from '#apps/sprintpoint/infrastructure/sprint-point-pg-table.ts'
+import { deck } from '#sprintpoint/infrastructure/schema/deck-schema-pg.ts'
+import { sprintPointPgTable } from '#sprintpoint/infrastructure/sprint-point-pg-table.ts'
 import { relations, sql } from 'drizzle-orm'
 import { primaryKey, timestamp, uuid, varchar } from 'drizzle-orm/pg-core'
 
 export const session = sprintPointPgTable('session', {
   id: uuid('id').primaryKey().defaultRandom(),
   deckId: uuid('deck_id').notNull(),
+  // cards. This is a JSONB field that will store the cards in the session
   createdAt: timestamp('createdAt').notNull().defaultNow(),
   updatedAt: timestamp('updatedAt')
     .notNull()

@@ -1,17 +1,57 @@
-version: '3.8'
-
 services:
-  api:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    container_name: api-server
-    volumes:
-      - ./:/app
-      - /app/node_modules
+  reverse-proxy:
+    image: traefik:v3.1
+    restart: unless-stopped
+    command:
+      - "--api.insecure=true"
+      - "--providers.docker"
+      - "--providers.docker.exposedbydefault=false"
+      - "--certificatesresolvers.myresolver.acme.tlschallenge=true"
+      - "--certificatesresolvers.myresolver.acme.email=ailushyk@gmail.com"
+      - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
+      - "--entryPoints.web.address=:80"
+      - "--entryPoints.web.http.redirections.entryPoint.to=websecure"
+      - "--entryPoints.websecure.address=:443"
+      - "--entryPoints.websecure.http.tls.certResolver=myresolver"
     ports:
-      - "${PORT}:${PORT}"
+      - "80:80"
+      - "8080:8080"
+      - "443:443"
+    volumes:
+      - "letsencrypt:/letsencrypt"
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    networks:
+      api_network:
+
+  api:
+    image: ailushyk/api-server:latest
+    restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.api_secure.rule=Host(`api.ailushyk.dev`)"
+      - "traefik.http.routers.api_secure.entrypoints=websecure"
+      - "com.centurylinklabs.watchtower.enable=true"
+    deploy:
+      mode: replicated
+      replicas: 3
     environment:
+      DEBUG: "express:*"
+      PORT: ${PORT}
+      AUTH_SECRET: ${AUTH_SECRET}
+      AUTH_EXPIRES_IN: ${AUTH_EXPIRES_IN}
+      # Keycloak
+      AUTH_KEYCLOAK_SERVER_URL: ${AUTH_KEYCLOAK_SERVER_URL}
+      AUTH_KEYCLOAK_CONFIDENTIAL_PORT: ${AUTH_KEYCLOAK_CONFIDENTIAL_PORT}
+      # plutos
+      AUTH_KEYCLOAK_REALM_PLUTOS: ${AUTH_KEYCLOAK_REALM_PLUTOS}
+      AUTH_KEYCLOAK_CLIENT_PLUTOS: ${AUTH_KEYCLOAK_CLIENT_PLUTOS}
+
+      # Keycloak Sprintpoint
+      AUTH_KEYCLOAK_REALM_SPRINTPOINT: ${AUTH_KEYCLOAK_REALM_SPRINTPOINT}
+      AUTH_KEYCLOAK_CLIENT_SPRINTPOINT: ${AUTH_KEYCLOAK_CLIENT_SPRINTPOINT}
+      AUTH_KEYCLOAK_CLIENT_SECRET_SPRINTPOINT: ${AUTH_KEYCLOAK_CLIENT_SECRET_SPRINTPOINT}
+
+      DATABASE_NAME: ${DATABASE_NAME}
       DATABASE_HOST: db
       DATABASE_PORT: ${DATABASE_PORT}
       DATABASE_DB: ${DATABASE_NAME}
@@ -19,25 +59,47 @@ services:
       DATABASE_PASSWORD: ${DATABASE_PASSWORD}
     depends_on:
       - db
+    networks:
+      api_network:
+#      inner_network:
 
   db:
     image: postgres:16.3-alpine
-    container_name: api-server-db
-    restart: always
+    restart: unless-stopped
     environment:
       POSTGRES_PORT: ${DATABASE_PORT}
       POSTGRES_DB: ${DATABASE_NAME}
       POSTGRES_USER: ${DATABASE_USER}
       POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
-    ports:
-      - "${DATABASE_PORT}:${DATABASE_PORT}"
     volumes:
       - pgdata:/var/lib/postgresql/data
     healthcheck:
-      test: [ "CMD-SHELL", "pg_isready" ]
+      test: pg_isready -h db
       interval: 1s
       timeout: 5s
       retries: 10
+    networks:
+      api_network:
+#      inner_network:
+
+  watchtower:
+    image: containrrr/watchtower
+    command:
+      - "--label-enable"
+      - "--interval"
+      - "30"
+      - "--rolling-restart"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      api_network:
+#      inner_network:
+
+networks:
+  api_network:
+#  inner_network:
 
 volumes:
   pgdata:
+  letsencrypt:
+

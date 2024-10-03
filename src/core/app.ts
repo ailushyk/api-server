@@ -1,9 +1,9 @@
-import { sprintpointAuth } from '#apps/sprintpoint/routes/sprintpoint-auth.ts'
-import { setupSprintpointRouter } from '#apps/sprintpoint/routes/sprintpoint-router.ts'
 import commonRouters from '#common/api/common-routers.ts'
 import healthRouter from '#common/api/health-router.ts'
 import { errorHandler } from '#lib/error-handler.ts'
 import plutosRouter from '#modules/plutos/api/plutos-router.ts'
+import { sprintpointAuth } from '#sprintpoint/sprintpoint-auth.ts'
+import { initializeSprintPointRoutes } from '#sprintpoint/sprintpoint-routes.ts'
 import express, { type Express } from 'express'
 
 export function setupApp() {
@@ -21,14 +21,9 @@ function setupMiddlewares(app: Express) {
 function setupRoutes(app: Express) {
   app.use(sprintpointAuth.middleware())
   app.use('/api/plutos', plutosRouter)
-  app.use(
-    '/api/sprintpoint',
-    [
-      //
-      sprintpointAuth.protect(),
-    ],
-    setupSprintpointRouter(),
-  )
+  initializeSprintPointRoutes(sprintpointAuth).forEach((router) => {
+    app.use('/api/sprintpoint', router)
+  })
   app.use('/api/', commonRouters)
   app.use(healthRouter)
   app.use('*', (req, res) => {

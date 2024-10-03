@@ -1,5 +1,5 @@
-import { deck } from '#apps/sprintpoint/infrastructure/schema/deck-schema-pg.ts'
-import { sprintPointPgTable } from '#apps/sprintpoint/infrastructure/sprint-point-pg-table.ts'
+import { deck } from '#sprintpoint/infrastructure/schema/deck-schema-pg.ts'
+import { sprintPointPgTable } from '#sprintpoint/infrastructure/sprint-point-pg-table.ts'
 import { sql } from 'drizzle-orm'
 import {
   numeric,

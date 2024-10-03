@@ -1,5 +1,5 @@
 import http from 'node:http'
-import { setupApp } from '#app.ts'
+import { setupApp } from '#core/app.ts'
 
 const PORT = process.env.PORT || 3000
 const app = setupApp()
