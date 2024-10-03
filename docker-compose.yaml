@@ -24,7 +24,7 @@ services:
       api_network:
 
   api:
-    image: ailushyk/api-server:dev
+    image: ailushyk/api-server:main
     restart: unless-stopped
     labels:
       - "traefik.enable=true"
